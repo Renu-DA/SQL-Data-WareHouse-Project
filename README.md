@@ -1,4 +1,5 @@
 # SQL-Data-WareHouse-Project
+SQL Data Warehouse Project – Medallion Architecture 
 
 SQL Data Warehouse Project – Medallion Architecture
 📌 Project Overview
