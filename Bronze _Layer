@@ -1,0 +1,159 @@
+#Bronze Layer
+
+USE [DATAWarehouseProject]
+GO
+
+/****** Object:  StoredProcedure [Bronze].[load_bronze]    Script Date: 5/14/2026 6:00:49 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE   PROCEDURE [Bronze].[load_bronze] AS 
+Begin 
+  Declare @start_time DATETIME, @end_time DATETIME;
+	Begin Try
+    Print ('*************************************************************');
+		Print('Truncated Tbale: bronze.crm_cust_info');
+		Print ('*************************************************************');
+		SET @start_time = GETDATE();
+		TRUNCATE TABLE bronze.crm_cust_info
+
+		Print ('*************************************************************');
+		Print('Insert data into bronze.crm_cust_info');
+		Print ('*************************************************************');
+		BULK INSERT bronze.crm_cust_info
+		from "C:\Users\DELL\Documents\SQL\dbc9660c89a3480fa5eb9bae464d6c07\sql-data-warehouse-project\datasets\source_crm\cust_info.csv"
+		with (
+
+		FIRSTROW=2,
+		FIELDTERMINATOR= ',',
+		TABLOCK
+
+		);
+
+		set @end_time = GETDATE();
+		print('duration of the loding is: ' + cast(datediff(second, @start_time, @end_time) AS NVARCHAR));
+
+
+		------------------------------------------------------------------
+		Print ('*************************************************************');
+		Print('Truncated Tbale: bronze.crm_prd_info');
+		Print ('*************************************************************');
+
+		SET @start_time = GETDATE();
+		TRUNCATE TABLE bronze.crm_prd_info
+
+		Print ('*************************************************************');
+		Print('Insert data into bronze.crm_prd_info');
+		Print ('*************************************************************');
+		BULK INSERT bronze.crm_prd_info
+		FROM "C:\Users\DELL\Documents\SQL\dbc9660c89a3480fa5eb9bae464d6c07\sql-data-warehouse-project\datasets\source_crm\prd_info.csv"
+		with (
+		FIRSTROW=2,
+		FIELDTERMINATOR= ',',
+		TABLOCK
+		);
+		SET @end_time = GETDATE();
+		print('duration of the loding is: ' + cast(datediff(second, @start_time, @end_time) AS NVARCHAR));
+
+
+
+		-------------------------------------------------------------------------
+		Print ('*************************************************************');
+		Print('Truncated Tbale: bronze.crm_sales_details');
+		Print ('*************************************************************');
+
+		SET @start_time = GETDATE();
+		TRUNCATE TABLE bronze.crm_sales_details
+
+		Print ('*************************************************************');
+		Print('Insert data into bronze.crm_sales_details');
+		Print ('*************************************************************');
+		BULK INSERT bronze.crm_sales_details
+		FROM "C:\Users\DELL\Documents\SQL\dbc9660c89a3480fa5eb9bae464d6c07\sql-data-warehouse-project\datasets\source_crm\sales_details.csv"
+		with (
+		FIRSTROW=2,
+		FIELDTERMINATOR= ',',
+		TABLOCK
+		);
+		SET @end_time = GETDATE();
+		print('duration of the loding is: ' + cast(datediff(second, @start_time, @end_time) AS NVARCHAR));
+
+
+
+		---------------------------------------------------------------------------------------
+		Print ('*************************************************************');
+		Print('Truncated Tbale: bronze.erp_cust_az12');
+		Print ('*************************************************************');
+
+		SET @start_time = GETDATE();
+		Truncate Table bronze.erp_cust_az12
+
+
+		Print ('*************************************************************');
+		Print('Insert data into bronze.erp_cust_az12');
+		Print ('*************************************************************');
+		BULK INSERT bronze.erp_cust_az12
+		From "C:\Users\DELL\Documents\SQL\dbc9660c89a3480fa5eb9bae464d6c07\sql-data-warehouse-project\datasets\source_erp\CUST_AZ12.csv"
+		with (
+		FIRSTROW=2,
+		FIELDTERMINATOR=',',
+		TABLOCK
+		);
+		SET @end_time = GETDATE();
+		print('duration of the loding is: ' + cast(datediff(second, @start_time, @end_time) AS NVARCHAR));
+
+
+		---------------------------------------------------------------------------------------------
+		Print ('*************************************************************');
+		Print('Truncated Tbale: bronze.erp_loc_a101');
+		Print ('*************************************************************');
+		SET @start_time=GETDATE();
+		TRUNCATE TABLE bronze.erp_loc_a101
+
+		Print ('*************************************************************');
+		Print('Insert data into bronze.erp_loc_a101');
+		Print ('*************************************************************');
+		BULK INSERT bronze.erp_loc_a101
+		from "C:\Users\DELL\Documents\SQL\dbc9660c89a3480fa5eb9bae464d6c07\sql-data-warehouse-project\datasets\source_erp\LOC_A101.csv"
+		with (
+		FIRSTROW=2,
+		FIELDTERMINATOR=',',
+		TABLOCK
+		);
+		SET @end_time= GETDATE();
+		print('duration of the loding is: ' + cast(datediff(second, @start_time, @end_time) AS NVARCHAR));
+
+
+		--------------------------------------------------------------------------------------------
+		Print ('*************************************************************');
+		Print('Truncated Tbale: bronze.erp_px_cat_g1v2');
+		Print ('*************************************************************');
+
+		SET @start_time = GETDATE();
+		TRUNCATE TABLE bronze.erp_px_cat_g1v2
+
+		Print ('*************************************************************');
+		Print('Insert data into bronze.erp_px_cat_g1v2');
+		Print ('*************************************************************');
+		BULK INSERT bronze.erp_px_cat_g1v2
+		FROM "C:\Users\DELL\Documents\SQL\dbc9660c89a3480fa5eb9bae464d6c07\sql-data-warehouse-project\datasets\source_erp\PX_CAT_G1V2.csv"
+		WITH (
+		FIRSTROW=2,
+		FIELDTERMINATOR=',',
+		TABLOCK
+);
+    SET @end_time = GETDATE();
+		print('duration of the loding is: ' + cast(datediff(second, @start_time, @end_time) AS NVARCHAR));
+  END TRY 
+
+  Begin CATCH
+  print('Error Occurred')
+	print(Error_message())
+ End CATCH
+END
+GO
+
+
