@@ -13,35 +13,6 @@ Gold Layer → Business-Ready Analytical Models
 
 The project focuses on building a scalable and structured data warehouse solution using SQL-based ETL pipelines, data transformation logic, and dimensional modeling concepts.
 
-🏗️ Architecture
-                +------------------+
-                |   Source Files   |
-                | CSV / ERP / CRM  |
-                +---------+--------+
-                          |
-                          v
-                 -----------------
-                 |   Bronze Layer |
-                 | Raw Data Store |
-                 -----------------
-                          |
-                          v
-                 -----------------
-                 |   Silver Layer |
-                 | Cleaned Data   |
-                 -----------------
-                          |
-                          v
-                 -----------------
-                 |    Gold Layer  |
-                 | Business Views |
-                 -----------------
-                          |
-                          v
-                +------------------+
-                | Reporting / BI   |
-                | Power BI / SQL   |
-                +------------------+
                 
 # 🥉 Bronze Layer – Raw Data Ingestion
 
